@@ -1,8 +1,8 @@
 package mark.todo.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
-
-public class Task {
+public class Task implements Serializable {
     private String taskDesc;
     private Date date;
     private Boolean complete;
