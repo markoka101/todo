@@ -1,6 +1,6 @@
 package mark.todo.service;
 
-import jakarta.persistence.EntityNotFoundException;
+
 import lombok.AllArgsConstructor;
 import mark.todo.entity.User;
 import mark.todo.pojo.Task;
@@ -8,7 +8,7 @@ import mark.todo.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
