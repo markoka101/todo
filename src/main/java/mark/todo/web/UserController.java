@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import mark.todo.entity.User;
 import mark.todo.pojo.AuthRequest;
 import mark.todo.pojo.AuthResponse;
+import mark.todo.pojo.Task;
 import mark.todo.security.JwtTokenUtil;
 import mark.todo.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,12 @@ public class UserController {
         } catch (BadCredentialsException exception) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
 
+    @PostMapping("/{id}/addTask")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    public ResponseEntity<?> addTask(@PathVariable Long id, @Valid @RequestBody Task task) {
+        userService.createTask(id, task);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

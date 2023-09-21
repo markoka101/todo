@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column
-    @Lob
+    @ElementCollection
     private Set<Task> tasks;
 
     //user roles

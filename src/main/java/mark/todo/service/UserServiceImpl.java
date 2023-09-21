@@ -2,6 +2,7 @@ package mark.todo.service;
 
 
 import lombok.AllArgsConstructor;
+import mark.todo.entity.Role;
 import mark.todo.entity.User;
 import mark.todo.pojo.Task;
 import mark.todo.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -42,6 +44,8 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         //encode user password
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //set user role
+        user.addRole(new Role(2L));
         return userRepository.save(user);
     }
 

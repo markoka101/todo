@@ -1,9 +1,18 @@
 package mark.todo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Date;
-public class Task implements Serializable {
+
+@Embeddable
+@NoArgsConstructor
+public class Task {
     private String taskDesc;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
     private Date date;
     private Boolean complete;
 
