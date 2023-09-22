@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,18 +40,12 @@ public class UserServiceImpl implements UserService {
 
     //saves user when register
     @Override
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         //encode user password
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         //set user role
         user.addRole(new Role(2L));
-        return userRepository.save(user);
-    }
-
-    //only used for testing in early stages
-    @Override
-    public User loginUser(User user) {
-        return getUser(user.getUsername(), "username");
+        userRepository.save(user);
     }
 
     /*
@@ -61,28 +54,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createTask(Long id, Task task) {
         User user = getUser(id);
+        task.setTaskNumber(user.getTasks().size() + 1);
         user.getTasks().add(task);
         userRepository.save(user);
     }
 
     @Override
-    public void finishTask(Long id, Task finishedTask, Boolean complete) {
+    public void finishTask(Long id, int taskNumber, Boolean complete) {
         User user = getUser(id);
-        getTask(user,finishedTask).setComplete(true);
+        getTask(user,taskNumber).setComplete(true);
         userRepository.save(user);
     }
 
     @Override
-    public void changeDate(Long id, Task changeTask, Date date) {
+    public void editTask(Long id, int taskNumber, Task updatedTask) {
         User user = getUser(id);
-        getTask(user, changeTask).setDate(date);
-        userRepository.save(user);
-    }
+        Task currTask = getTask(user,taskNumber);
 
-    @Override
-    public void changeDescription(Long id, Task changeTask, String desc) {
-        User user = getUser(id);
-        getTask(user, changeTask).setTaskDesc(desc);
+        currTask.setTaskDesc(updatedTask.getTaskDesc());
+        currTask.setDate(updatedTask.getDate());
+
         userRepository.save(user);
     }
 
@@ -93,10 +84,16 @@ public class UserServiceImpl implements UserService {
         return user.getTasks();
     }
 
+    //delete tasks
+    @Override
+    public void deleteTask(Long id, int taskNumber) {
+
+    }
+
     //return specific task from set
-    private Task getTask(User user, Task fetchTask) {
+    private Task getTask(User user, int taskNumber) {
         for (Task task : user.getTasks()) {
-            if (task == fetchTask) {
+            if (task.getTaskNumber() == taskNumber) {
                 return task;
             }
         }

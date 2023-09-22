@@ -10,14 +10,15 @@ public interface UserService {
     //accessing user
     User getUser(Long id);
     User getUser(String nameOrEmail, String option);
-    User saveUser(User user);
-    User loginUser(User user);
+    void saveUser(User user);
 
-    //user functions
+    //creating task
     void createTask(Long id, Task task);
-    void finishTask(Long id, Task finishedTask, Boolean complete);
-    void changeDate(Long id, Task changeTask, Date date);
-    void changeDescription(Long id, Task changeTask, String desc);
+
+    //edit tasks
+    void finishTask(Long id, int taskNumber, Boolean complete);
+    void editTask(Long id, int taskNumber, Task updatedTask);
+    void deleteTask(Long id, int taskNumber);
 
     //Display tasks
     Set<Task> allTasks(Long id);

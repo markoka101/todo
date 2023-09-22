@@ -34,6 +34,9 @@ public class UserController {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
+    /*
+    Signup and login
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
         userService.saveUser(user);
@@ -59,10 +62,34 @@ public class UserController {
         }
     }
 
+    //adding task
     @PostMapping("/{id}/addTask")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
     public ResponseEntity<?> addTask(@PathVariable Long id, @Valid @RequestBody Task task) {
         userService.createTask(id, task);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //display tasks
+    @GetMapping("/{id}/getTasks")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    public ResponseEntity<?> getTasks(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.allTasks(id), HttpStatus.OK);
+    }
+
+    /*
+    editing tasks
+     */
+    @PutMapping("/{id}/{taskNumber}/edit")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    public ResponseEntity<?> editTask(@PathVariable Long id, @PathVariable int taskNumber, @Valid @RequestBody Task task) {
+        userService.editTask(id,taskNumber,task);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/{id}/{taskNumber}/completed")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    public ResponseEntity<?> finishTask(@PathVariable Long id, @PathVariable int taskNumber) {
+        userService.finishTask(id,taskNumber,true);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
