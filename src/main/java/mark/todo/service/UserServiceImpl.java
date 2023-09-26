@@ -9,10 +9,9 @@ import mark.todo.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -20,13 +19,16 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private EntityManager entityManager;
 
+    //gets user through id
     @Override
     public User getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         return unwrapUser(user,id);
     }
 
+    //gets user through username or email
     @Override
     public User getUser(String nameOrEmail, String option) {
         Optional<User> user;
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService {
     /*
     Task functions
      */
+    //create task
     @Override
     public void createTask(Long id, Task task) {
         User user = getUser(id);
@@ -59,6 +62,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    //set task to complete
     @Override
     public void finishTask(Long id, int taskNumber, Boolean complete) {
         User user = getUser(id);
@@ -66,6 +70,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    //edit the task's date or description
     @Override
     public void editTask(Long id, int taskNumber, Task updatedTask) {
         User user = getUser(id);
@@ -81,13 +86,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Task> allTasks(Long id) {
         User user = getUser(id);
-        return user.getTasks();
+
+        //using treeset so I can sort the tasks when displaying
+        Set<Task> treeSet = new TreeSet<>(Comparator.comparing(Task::getTaskNumber));
+        treeSet.addAll(user.getTasks());
+        return treeSet;
     }
 
     //delete tasks
     @Override
     public void deleteTask(Long id, int taskNumber) {
+        User user = getUser(id);
 
+        //using iterator to avoid concurrent modification exception
+        Iterator<Task> iterTask = user.getTasks().iterator();
+        while(iterTask.hasNext()) {
+            Task task = iterTask.next();
+            if (task.getTaskNumber() == taskNumber) {
+                iterTask.remove();
+            }
+            if(task.getTaskNumber() > taskNumber) {
+                task.setTaskNumber(task.getTaskNumber() - 1);
+            }
+        }
     }
 
     //return specific task from set

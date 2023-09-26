@@ -13,9 +13,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 
@@ -45,6 +47,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody AuthRequest request) {
 
+        //authenticates user's credentials
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword())
@@ -62,6 +65,10 @@ public class UserController {
         }
     }
 
+
+    /*
+    Task controller methods
+     */
     //adding task
     @PostMapping("/{id}/addTask")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
@@ -77,19 +84,28 @@ public class UserController {
         return new ResponseEntity<>(userService.allTasks(id), HttpStatus.OK);
     }
 
-    /*
-    editing tasks
-     */
+    //edit task
     @PutMapping("/{id}/{taskNumber}/edit")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
     public ResponseEntity<?> editTask(@PathVariable Long id, @PathVariable int taskNumber, @Valid @RequestBody Task task) {
         userService.editTask(id,taskNumber,task);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //set task to complete
     @PutMapping("/{id}/{taskNumber}/completed")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
     public ResponseEntity<?> finishTask(@PathVariable Long id, @PathVariable int taskNumber) {
         userService.finishTask(id,taskNumber,true);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //delete task
+    @DeleteMapping("/{id}/{taskNumber}/delete")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    @Transactional
+    public ResponseEntity<?> deleteTask(@PathVariable Long id, @PathVariable int taskNumber) {
+        userService.deleteTask(id, taskNumber);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
