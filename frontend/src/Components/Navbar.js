@@ -3,5 +3,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Navbar() {
-    return null;
+    return (
+        <div>
+            navigate bar
+        </div>
+    );
 }

@@ -1,6 +1,9 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
-export default function Home() {
-    return null;
+export default function Home({user}) {
+
+    return (
+        <div>Home page</div>
+    );
 }

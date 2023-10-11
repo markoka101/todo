@@ -1,14 +1,14 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Routes,
-    Route
+    Route,
 } from "react-router-dom";
-import { CookiesProvide, CookiesProvider, useCookies } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 //import pages
 import LoginPage from "./Components/LoginPage";
-import RegisterPage from "./Components/RegisterPage";
+import RegisterPage from "./Components/RegisterPage"
 import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
 
@@ -17,18 +17,24 @@ export default function App() {
     const [cookies, setCookie] = useCookies(["user"]);
 
     function handleLogin(user) {
-        setCookie('user', user, { path: '/'});
+        setCookie('user', user, { path: '/'}, {expires: 0});
     }
 
     return (
         <CookiesProvider>
-            <div>
-                {cookies.user ? (
-                    <Home user = {cookies.user} />
-                ) : (
-                    <LoginPage onLogin={handleLogin} />
-                )}
-            </div>
+            {cookies.user ? (
+                <>
+                <Navbar />
+                <Home user = {cookies.user} />
+                </>
+            ) : (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<LoginPage onLogin={handleLogin}/>}  />
+                        <Route path="/RegisterPage" element={<RegisterPage />} />
+                    </Routes>
+                </BrowserRouter>
+            )}
         </CookiesProvider>
     )
 }
