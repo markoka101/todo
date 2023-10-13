@@ -21,7 +21,7 @@ export default function App() {
     }
 
     return (
-        <main className="bg-gradient-to-r from-fuchsia-300 from-10% via-purple-300 via-30% to-violet-300 to-90% min-h-screen">
+        <main className="bg-gradient-to-r from-fuchsia-300 from-20% via-purple-300 via-40% to-violet-300 to-85% min-h-screen">
             <CookiesProvider>
                 {cookies.user ? (
                     <>
@@ -32,7 +32,7 @@ export default function App() {
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<LoginPage onLogin={handleLogin}/>}  />
-                            <Route path="/RegisterPage" element={<RegisterPage />} />
+                            <Route path="/RegisterPage" element={<RegisterPage />}/>
                         </Routes>
                     </BrowserRouter>
                 )}

@@ -38,26 +38,41 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="bg-black">
-            <form onSubmit={handleSubmit} className="lg:min-h-full bg-black">
-                <label className="text-red-700">
-                    Username:
-                    <input className="text-red-600"type="text" placeholder="username" value={username}
-                    onChange={(e) => setUsername(e.target.value)}/>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" placeholder="password" value={password}
-                    onChange={(e) => setPassword(e.target.value)}/>
-                </label>
-                <label>
-                    Email:
-                    <input type="email" placeholder="email" value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
-                </label>
-                <input type="submit" value="Submit"/>
-            </form>
-            <button onClick={e=> navigate('/')}>Back</button>
-        </div>
+        <section id="Register" className="relative items-center flex flex-col justify-center py-48">
+            <div className="container max-w-md py-20 mx-auto flex flex-col sm:flex-nowrap bg-pink-50 opacity-75 border-gray-500 border-4">
+                <h1 className="text-center font-extrabold text-lg">
+                    Register
+                </h1>
+                <form onSubmit={handleSubmit} className="lg:w-1/2 md:w-1/2 lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4 text-lg font-bold">
+                    <label>
+                        Username:        
+                    </label>
+                    <input type="text" placeholder="username" className="border-2 placeholder:px-1 border-gray-500"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}/>
+                    <label>
+                        Password:
+                    </label>
+                        <input type="password" placeholder="password" className="border-2 placeholder:px-1 border-gray-500"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}/>
+                    <label>
+                        Email:
+                    </label>
+                    <input type="email" placeholder="email" className="border-2 placeholder:px-1 border-gray-500"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)} />
+
+                    <div className="flex justify-between sm:justify-center w-full pt-3">
+                        <button onClick={e=> navigate('/')} className="text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                            Back
+                        </button>
+                        <button type="submit" value="Register" className="sm:ml-4 text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
     );
 }

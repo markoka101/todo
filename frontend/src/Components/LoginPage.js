@@ -44,22 +44,35 @@ export default function LoginPage({ onLogin }) {
     }
 
     return (
-        <section id="login" className="relative items-center justify-center py-48">
-            <div className="container max-w-md py-20 mx-auto flex sm:flex-nowrap bg-white opacity-70 border-gray-400 border-4">
-                <form onSubmit={handleSubmit} className="lg:w-1/3 md:w-1/2 lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4">
-                    <label className="">
+        <section id="login" className="relative items-center flex flex-col justify-center py-48">
+            <div className="container max-w-md py-20 mx-auto flex flex-col sm:flex-nowrap bg-pink-50 opacity-75 border-gray-500 border-4">
+                <h1 className="text-center font-extrabold text-lg">
+                    Welcome
+                </h1>
+                <form onSubmit={handleSubmit} className="lg:w-1/2 md:w-1/2 lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4 text-lg font-bold">
+                    <label className="leading-7">
                         Username:
-                        <input className="bg-white opacity-50 border-black border-1" type="text" placeholder="username" value={username}
-                        onChange={(e) => setUsername(e.target.value)}/>
                     </label>
-                    <label>
+                    <input type="text" placeholder="username" className="border-2 placeholder:px-1 border-gray-500"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}>
+                        
+                    </input>
+                    <label className="leading-7 pt-1">
                         Password:
-                        <input type="password" placeholder="password" value={password}
-                        onChange={(e) => setPassword(e.target.value)}/>
                     </label>
-                    <div>
-                        <input type="submit" value="Login"/>
-                        <button onClick={e=> navigate('/RegisterPage')}>Register</button>
+                    <input type="password" placeholder="password" className="border-2 placeholder:px-1 border-gray-500"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}>
+                    </input>
+                    <div className="flex justify-between sm:justify-center w-full pt-3">
+                        <button type="submit" value="Login" className="text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                            Login
+                        </button>
+                        <button className="sm:ml-4 text-center text-blue-900 font-extrabold bg-pink-300 border-0 py-3 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2" 
+                            onClick={e=> navigate('/RegisterPage')}>
+                            Register
+                        </button>
                     </div>
                 </form>             
             </div>
