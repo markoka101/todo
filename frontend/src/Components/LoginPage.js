@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 export default function LoginPage({ onLogin }) {
 
@@ -44,22 +44,25 @@ export default function LoginPage({ onLogin }) {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" placeholder="username" value={username}
-                    onChange={(e) => setUsername(e.target.value)}/>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" placeholder="password" value={password}
-                    onChange={(e) => setPassword(e.target.value)}/>
-                </label>
-                <input type="submit" value="Login"/>
-            </form>
-            <button onClick={e=> navigate('/RegisterPage')}>Register</button>
-        </div>
-
+        <section id="login" className="relative items-center justify-center py-48">
+            <div className="container max-w-md py-20 mx-auto flex sm:flex-nowrap bg-white opacity-70 border-gray-400 border-4">
+                <form onSubmit={handleSubmit} className="lg:w-1/3 md:w-1/2 lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4">
+                    <label className="">
+                        Username:
+                        <input className="bg-white opacity-50 border-black border-1" type="text" placeholder="username" value={username}
+                        onChange={(e) => setUsername(e.target.value)}/>
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" placeholder="password" value={password}
+                        onChange={(e) => setPassword(e.target.value)}/>
+                    </label>
+                    <div>
+                        <input type="submit" value="Login"/>
+                        <button onClick={e=> navigate('/RegisterPage')}>Register</button>
+                    </div>
+                </form>             
+            </div>
+        </section>
     );
 }

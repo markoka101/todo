@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Navbar() {
     return (
-        <div>
+        <div className="bg-black">
             navigate bar
         </div>
     );

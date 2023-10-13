@@ -38,11 +38,11 @@ export default function RegisterPage() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>
+        <div className="bg-black">
+            <form onSubmit={handleSubmit} className="lg:min-h-full bg-black">
+                <label className="text-red-700">
                     Username:
-                    <input type="text" placeholder="username" value={username}
+                    <input className="text-red-600"type="text" placeholder="username" value={username}
                     onChange={(e) => setUsername(e.target.value)}/>
                 </label>
                 <label>

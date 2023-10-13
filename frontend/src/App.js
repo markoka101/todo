@@ -21,20 +21,22 @@ export default function App() {
     }
 
     return (
-        <CookiesProvider>
-            {cookies.user ? (
-                <>
-                <Navbar />
-                <Home user = {cookies.user} />
-                </>
-            ) : (
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<LoginPage onLogin={handleLogin}/>}  />
-                        <Route path="/RegisterPage" element={<RegisterPage />} />
-                    </Routes>
-                </BrowserRouter>
-            )}
-        </CookiesProvider>
+        <main className="bg-gradient-to-r from-fuchsia-300 from-10% via-purple-300 via-30% to-violet-300 to-90% min-h-screen">
+            <CookiesProvider>
+                {cookies.user ? (
+                    <>
+                    <Navbar />
+                    <Home user = {cookies.user} />
+                    </>
+                ) : (
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<LoginPage onLogin={handleLogin}/>}  />
+                            <Route path="/RegisterPage" element={<RegisterPage />} />
+                        </Routes>
+                    </BrowserRouter>
+                )}
+            </CookiesProvider>
+        </main>
     )
 }
