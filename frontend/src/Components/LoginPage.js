@@ -53,7 +53,7 @@ export default function LoginPage({ onLogin }) {
                     <label className="leading-7">
                         Username:
                     </label>
-                    <input type="text" placeholder="username" className="border-2 placeholder:px-1 border-gray-500"
+                    <input type="text" placeholder="username" className="border-2 px-1 border-gray-500"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}>
                         
@@ -61,7 +61,7 @@ export default function LoginPage({ onLogin }) {
                     <label className="leading-7 pt-1">
                         Password:
                     </label>
-                    <input type="password" placeholder="password" className="border-2 placeholder:px-1 border-gray-500"
+                    <input type="password" placeholder="password" className="border-2 px-1 border-gray-500"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}>
                     </input>

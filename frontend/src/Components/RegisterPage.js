@@ -47,19 +47,19 @@ export default function RegisterPage() {
                     <label>
                         Username:        
                     </label>
-                    <input type="text" placeholder="username" className="border-2 placeholder:px-1 border-gray-500"
+                    <input type="text" placeholder="username" className="border-2 px-1 border-gray-500"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}/>
                     <label>
                         Password:
                     </label>
-                        <input type="password" placeholder="password" className="border-2 placeholder:px-1 border-gray-500"
+                        <input type="password" placeholder="password" className="border-2 px-1 border-gray-500"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}/>
                     <label>
                         Email:
                     </label>
-                    <input type="email" placeholder="email" className="border-2 placeholder:px-1 border-gray-500"
+                    <input type="email" placeholder="email" className="border-2 px-1 border-gray-500"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} />
 
