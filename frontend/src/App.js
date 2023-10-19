@@ -4,7 +4,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import { CookiesProvider, useCookies } from "react-cookie";
+import { Cookies, CookiesProvider, useCookies } from "react-cookie";
 
 //import pages
 import LoginPage from "./Components/LoginPage";
