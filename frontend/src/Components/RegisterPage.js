@@ -38,7 +38,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <section id="Register" className="relative flex flex-col justify-center py-8">
+        <section id="Register" className="relative items-center flex flex-col justify-center py-48">
             <div className="container max-w-md py-20 mx-auto flex flex-col sm:flex-nowrap bg-pink-50 opacity-75 border-gray-500 border-4">
                 <h1 className="text-center font-extrabold text-lg">
                     Register

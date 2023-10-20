@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 import React, { useEffect } from "react";
 import Popup from 'reactjs-popup';
 
@@ -9,6 +10,8 @@ export default function Home({user}) {
 
     //state for displaying tasks
     const [data,setData] = React.useState();
+    //refresh when tasks change
+    const [refresh, setRefresh] = React.useState(true);
 
     //states for popup
     const [open,setOpen] = React.useState(false);
@@ -29,6 +32,7 @@ export default function Home({user}) {
         //get the user id from the cookie
         const userId = user.id;
         const accessToken = user.token;
+        console.log(date);
 
         fetch(`http://localhost:8080/user/${userId}/addTask`, ({
             method: "POST",
@@ -42,6 +46,7 @@ export default function Home({user}) {
         .then(res => {
             if (res.status === 200) {
                 alert('Task Created!');
+                setRefresh(true);
             } else {
                 alert('Something went wrong :(');
             }
@@ -49,11 +54,15 @@ export default function Home({user}) {
         .catch(err => console.log(err));
     }
 
-    //convert format of datetime for backend
+    //convert format of datetime for frontend
     function convertDate(d) {
         let dArr = d.split('');
         dArr.splice(10,1,' ')
         return dArr.join('');
+    }
+
+    const formatDate = fd => {
+        return moment(convertDate(fd),'yyyy-MM-DD HH:mm').format('MM-DD-yyyy h:mm A').toString();
     }
 
     //Display tasks on page load
@@ -71,9 +80,13 @@ export default function Home({user}) {
             ).json();
 
             setData(data);
+            setRefresh(false);
+
+            console.log('refresh');
         };
         dataFetch();
-    }, [user.id, user.token]);
+    }, [user.id, user.token,refresh]);
+    
 
     //temporary function to ensure I am always working with an array thats not null or undefined
     function tf() {
@@ -85,6 +98,8 @@ export default function Home({user}) {
         }
         return arr;   
     }
+
+
 
     return (
         <section id="home" className="flex flex-row w-75 h-75 overflow-clip">
@@ -105,7 +120,7 @@ export default function Home({user}) {
                                     Date
                                 </label>
                                 <input type="datetime-local"
-                                    value={convertDate(date)}
+                                    value={date}
                                     onChange={(e) => setDate(e.target.value)}/>
                                 <button type="submit" value="addTask">Add New Task</button>
                             </form>
@@ -115,13 +130,18 @@ export default function Home({user}) {
                 <div className="bg-orange-300">
                     {tf().map((task) => {
                         return (
-                        <p key={task.taskNumber}>
-                            {task.taskNumber} 
-                            {task.taskDesc}
-                            {task.date}
-                            {task.complete}
+                        <div key={task.taskNumber} className="border-black border-4">
+                            <h1>
+                                {task.taskNumber} 
+                            </h1>
+                            <p>
+                                {task.taskDesc}
                             </p>
-                            );
+
+                            {convertDate(formatDate(task.date))}<br></br>
+                            {task.complete.toString()}
+                        </div>
+                        );
                     })}
                 </div>
             </div>
