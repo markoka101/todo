@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthResponse {
-    private String username;
+    private Long id;
     private String accessToken;
 }

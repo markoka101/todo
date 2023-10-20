@@ -15,7 +15,7 @@ import java.util.Date;
 public class Task {
     private int taskNumber;
     private String taskDesc;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date date;
     private Boolean complete;
 

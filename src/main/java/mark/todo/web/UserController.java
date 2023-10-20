@@ -13,16 +13,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Set;
 
 
 @AllArgsConstructor
 @RestController
+@CrossOrigin(
+        origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}
+)
 @RequestMapping("/user")
 public class UserController {
 
@@ -57,7 +60,7 @@ public class UserController {
 
             //generate token and send back
             String accessToken = jwtTokenUtil.generateAccessToken(user);
-            AuthResponse response = new AuthResponse(user.getUsername(), accessToken);
+            AuthResponse response = new AuthResponse(user.getId(), accessToken);
 
             return ResponseEntity.accepted().body(response);
         } catch (BadCredentialsException exception) {
@@ -80,7 +83,7 @@ public class UserController {
     //display tasks
     @GetMapping("/{id}/getTasks")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
-    public ResponseEntity<?> getTasks(@PathVariable Long id) {
+    public ResponseEntity<Set<Task>> getTasks(@PathVariable Long id) {
         return new ResponseEntity<>(userService.allTasks(id), HttpStatus.OK);
     }
 
