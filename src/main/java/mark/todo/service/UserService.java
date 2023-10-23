@@ -22,4 +22,5 @@ public interface UserService {
 
     //Display tasks
     Set<Task> allTasks(Long id);
+    Set<Task> finishedTasks(Long id);
 }

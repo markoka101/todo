@@ -66,7 +66,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void finishTask(Long id, int taskNumber, Boolean complete) {
         User user = getUser(id);
-        getTask(user,taskNumber).setComplete(true);
+        Task task = getTask(user,taskNumber);
+        task.setComplete(true);
+
+        //add task to completed tasks set
+        user.getCompletedTasks().add(task);
+        //remove task from the current set
+        user.getTasks().remove(task);
+
         userRepository.save(user);
     }
 
@@ -93,6 +100,11 @@ public class UserServiceImpl implements UserService {
         return treeSet;
     }
 
+    //display the finished tasks
+    public Set<Task> finishedTasks(Long id) {
+        User  user = getUser(id);
+        return user.getCompletedTasks();
+    }
     //delete tasks
     @Override
     public void deleteTask(Long id, int taskNumber) {

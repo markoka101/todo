@@ -87,6 +87,13 @@ public class UserController {
         return new ResponseEntity<>(userService.allTasks(id), HttpStatus.OK);
     }
 
+    //display completed tasks
+    @GetMapping("/{id}/completedTasks")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
+    public ResponseEntity<Set<Task>> getCompletedTasks(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.finishedTasks(id), HttpStatus.OK);
+    }
+
     //edit task
     @PutMapping("/{id}/{taskNumber}/edit")
     @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})

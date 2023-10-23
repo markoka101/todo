@@ -42,6 +42,10 @@ public class User implements UserDetails {
     @ElementCollection
     private Set<Task> tasks;
 
+    @Column
+    @ElementCollection
+    private Set<Task> completedTasks;
+
     //user roles
     @ManyToMany
     @JoinTable(
