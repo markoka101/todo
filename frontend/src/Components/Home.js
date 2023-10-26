@@ -1,7 +1,6 @@
 import moment from "moment/moment";
 import React, { useEffect } from "react";
 import Popup from 'reactjs-popup';
-import EditForm from "./EditForm";
 
 export default function Home({user}) {
 
@@ -10,8 +9,7 @@ export default function Home({user}) {
     const [date,setDate] = React.useState(moment().format('yyyy-MM-DDTHH:mm').toString());
 
     //setting states for form to edit task
-    const [editDesc,setEditDesc] = React.useState('');
-    const [editDate,setEditDate] = React.useState('');
+    const [editNumber,setEditNumber] = React.useState(0);
     const [editForm,setEditForm] = React.useState(false);
 
     //state for displaying tasks
@@ -24,17 +22,11 @@ export default function Home({user}) {
     const close = () => setOpen(false);
 
 
-    //New Task object
-    const newTask = {
+    //Task object
+    const taskObj = {
         taskDesc: taskDesc,
         date: date,
         complete: false
-    }
-
-    //edit task object
-    const editTask = {
-        editDesc: editDesc,
-        editDate: editDate,
     }
 
     //pass the new task to the server
@@ -48,11 +40,13 @@ export default function Home({user}) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user.token}`
             },
-            body: JSON.stringify(newTask)
+            body: JSON.stringify(taskObj)
         }))
         .then(res => {
             if (res.status === 200) {
                 alert('Task Created!');
+                setTaskDesc('');
+                setDate(moment().format('yyyy-MM-DDTHH:mm').toString());
                 setRefresh(true);
             } else {
                 alert('Something went wrong :(');
@@ -104,24 +98,43 @@ export default function Home({user}) {
     }
 
     //edit a specfic task
-    function edit(taskNumber) {
-        fetch(`http://localhost:8080/user/${user.id}/${taskNumber}/edit`, ({
+    function editHandler(e) {
+        e.preventDefault();
+
+        fetch(`http://localhost:8080/user/${user.id}/${editNumber}/edit`, ({
             method: "PUT",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user.token}`
             },
-            body: JSON.stringify(editTask)
+            body: JSON.stringify(taskObj)
         }))
         .then(res => {
             if (res.status === 200) {
                 alert('Task Edited');
+
+                //set states back to default
+                setTaskDesc('');
+                setDate(moment().format('yyyy-MM-DDTHH:mm').toString());
+                setEditForm(false);
+                setEditNumber(0);
+
+                //refresh page
+                setRefresh(true);
             } else {
                 alert('Ruh Roh');
             }
         })
         .catch(err => console.log(err));
+    }
+
+    //change states for when edit button is clicked
+    function editClick(task) {
+        setEditForm(!editForm);
+        setEditNumber(task.taskNumber);
+        setTaskDesc(task.taskDesc);
+        setDate(task.date);
     }
 
 
@@ -144,6 +157,31 @@ export default function Home({user}) {
             }
         })
         .catch(err => console.log(err));
+    }
+
+    //edit form
+    function edit()  {
+        return (
+            <div className="bg-green-300">
+                <form id="EditForm" onSubmit={editHandler}>
+                    <label>
+                        Task Description
+                    </label>
+                    <textarea
+                        value={taskDesc}
+                        onChange={(e) => setTaskDesc(e.target.value)}
+                    />
+                    <label>
+                        Task Date
+                    </label>
+                    <input type="datetime-local"
+                        value={date}
+                        onChange={(e)=> setDate(e.target.value)}
+                    />
+                    <button type="submit" value="editTask">Finish Editing</button>
+                </form>
+            </div>
+        )
     }
 
     return (
@@ -173,7 +211,7 @@ export default function Home({user}) {
                         </div>
                     </Popup>
                 </div>
-                <div className="bg-orange-300">
+                <div className="bg-orange-300 w-full">
                     {tf().map((task) => {
                         return (
                         <div key={task.taskNumber} className="border-black border-4">
@@ -187,10 +225,9 @@ export default function Home({user}) {
                             {convertDate(formatDate(task.date))}<br></br>
                             {task.complete.toString()} <br></br>
                             {/*Popup edit task form when button is clicked */}
-                            {editForm ? <EditForm editTask={task} /> : null}
-                            <button onClick={() => <EditForm editTask={task} />}>Edit Task</button>
+                            <button onClick={e => editClick(task)}>Edit Task</button>
                             <button onClick={e => complete(task.taskNumber)}>Complete</button>
-
+                            {(editForm === true && editNumber === task.taskNumber) ? edit() : null}
                         </div>
                         );
                     })}
