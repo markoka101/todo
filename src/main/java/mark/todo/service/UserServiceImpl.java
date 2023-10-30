@@ -74,6 +74,18 @@ public class UserServiceImpl implements UserService {
         //remove task from the current set
         user.getTasks().remove(task);
 
+        //using iterator to avoid concurrent modification exception
+        Iterator<Task> iterTask = user.getTasks().iterator();
+        while(iterTask.hasNext()) {
+            Task t = iterTask.next();
+            if (t.getTaskNumber() == taskNumber) {
+                iterTask.remove();
+            }
+            if(t.getTaskNumber() > taskNumber) {
+                t.setTaskNumber(t.getTaskNumber() - 1);
+            }
+        }
+
         userRepository.save(user);
     }
 

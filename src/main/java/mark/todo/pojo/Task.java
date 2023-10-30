@@ -3,6 +3,7 @@ package mark.todo.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
@@ -14,8 +15,11 @@ import java.util.Date;
 @Setter
 public class Task {
     private int taskNumber;
+
+    @NonNull
     private String taskDesc;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @NonNull
     private Date date;
     private Boolean complete;
 
