@@ -228,18 +228,18 @@ export default function Home({user}) {
     //new task form
     function addTask() {
         return (
-            <div className="bg-gray-500 lg:w-full h-full md:w-full lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4 text-lg font-bold place">
-                <form id="AddForm"onSubmit={handleSubmit} className="flex flex-col md:py-4 text-lg">
-                    <label>
-                        Task Description
-                    </label>
+            <div className="lg:w-full h-full md:w-full lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4 text-lg font-bold">
+                <form id="AddForm"onSubmit={handleSubmit} className="flex flex-col mx-10 md:py-4 text-lg">
+                    <h1>
+                        Task Description:
+                    </h1>
                     <textarea
                         value={taskDesc}
                         onChange={(e) => setTaskDesc(e.target.value)}
                     />
-                    <label>
+                    <h2>
                         Date
-                    </label>
+                    </h2>
                     <input type="datetime-local"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}/>
@@ -252,18 +252,18 @@ export default function Home({user}) {
     //edit task form
     function edit()  {
         return (
-            <div className="bg-green-300">
-                <form id="EditForm" onSubmit={editHandler}>
-                    <label>
-                        Task Description
-                    </label>
-                    <textarea
+            <div className="border-t-2 border-black py-2 mt-1">
+                <form id="EditForm" className="" onSubmit={editHandler}>
+                    <h1>
+                        Task Description:
+                    </h1>
+                    <textarea className="w-full"
                         value={taskDesc}
                         onChange={(e) => setTaskDesc(e.target.value)}
                     />
-                    <label>
-                        Task Date
-                    </label>
+                    <h2>
+                        Task Date:
+                    </h2>
                     <input type="datetime-local"
                         value={date}
                         onChange={(e)=> setDate(e.target.value)}
@@ -298,38 +298,55 @@ export default function Home({user}) {
     Design will come after everything is fully functional
     */
     return (
-        <section id="home" className="flex flex-row w-75 h-75 overflow-clip">
-            <div className="container w-2/3 bg-gray-100 mx-auto flex px-10-py-30 md:flex-col flex-col justify-center items-center overflow-auto">
-                <div className="bg-blue-400 w-full items-center justify-center">
+        <section id="home" className="flex flex-col md:flex-row lg:flex-row">
+            <div className="container w-3/5 mx-auto flex px-10-py-30 md:flex-col flex-col justify-center items-center">
+                <div className="bg-blue-400 mb-10 w-full items-center justify-center">
                     {/*Popups the form to create new task when add task is clicked*/}
                     <button onClick={e => addClick()}>Add new task</button>
                     {addTaskForm === true ? addTask() : null}
                 </div>
-                <div className="bg-orange-300 w-2/3">
+                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-auto">
                     {taskArr().map((task) => {
                         return (
-                        <div key={task.taskNumber} className="border-black border-4">
+                        <div key={task.taskNumber} className="bg-gradient-to-tr from-orange-100 to-orange-200 opacity-70 border-black border-2 my-2 py-2 px-3">
                             <h1>
-                                {task.taskNumber} 
+                                Task: #{task.taskNumber} 
                             </h1>
+
+                            <h2>
+                                Description:
+                            </h2>
                             <p>
                                 {task.taskDesc}
                             </p>
 
-                            {convertDate(formatDate(task.date))}<br></br>
-                            {task.complete.toString()} <br></br>
-                            
-                            <button onClick={e => deleteTask(task.taskNumber)}>Delete</button>
-                            {/*Expand edit task form when ediit button is clicked */}
-                            <button onClick={e => editClick(task)}>Edit Task</button>
-                            <button onClick={e => complete(task.taskNumber)}>Complete</button>
+                            <h3>
+                                Date:
+                            </h3>
+                            {convertDate(formatDate(task.date))}
+
+                            <div className="flex justify-between sm:justify-center w-full mt-1">
+                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg" 
+                                    onClick={e => deleteTask(task.taskNumber)}>
+                                    Delete
+                                </button>
+                                {/*Expand edit task form when ediit button is clicked */}
+                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 mx-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg"
+                                    onClick={e => editClick(task)}>
+                                    Edit
+                                </button>
+                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg"
+                                    onClick={e => complete(task.taskNumber)}>
+                                    Complete
+                                </button>
+                            </div>
                             {(editForm === true && editNumber === task.taskNumber) ? edit() : null}
                         </div>
                         );
                     })}
                 </div>
             </div>
-            <div className="container w-1/3 bg-orange-100 mx-auto flex px-10-py-30 md:flex-row flex-col justify-center items-center">
+            <div className="container w-2/5 bg-orange-100 mx-auto flex px-10-py-30 md:flex-row flex-col justify-center items-center">
                 <div className="bg-rose-200">
                     <h1>{taskArr().length}</h1>
                     <h2>{completedTaskArr().length}</h2>
