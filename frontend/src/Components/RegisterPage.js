@@ -63,11 +63,11 @@ export default function RegisterPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} />
 
-                    <div className="flex justify-between sm:justify-center w-full pt-3">
-                        <button onClick={e=> navigate('/')} className="text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                    <div className="flex justify-between sm:justify-center w-full pt-4">
+                        <button onClick={e=> navigate('/')} className="text-center text-blue-50 font-extrabold py-3 bg-gradient-to-r from-fuchsia-400 to-pink-400 hover:bg-gradient-to-r hover:from-pink-400 hover:to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
                             Back
                         </button>
-                        <button type="submit" value="Register" className="sm:ml-4 text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                        <button type="submit" value="Register" className="sm:ml-4 text-center text-blue-50 font-extrabold py-3 bg-gradient-to-r from-fuchsia-400 to-pink-400 hover:bg-gradient-to-r hover:from-pink-400 hover:to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
                             Register
                         </button>
                     </div>

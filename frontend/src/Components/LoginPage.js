@@ -65,11 +65,11 @@ export default function LoginPage({ onLogin }) {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}>
                     </input>
-                    <div className="flex justify-between sm:justify-center w-full pt-3">
-                        <button type="submit" value="Login" className="text-center text-blue-900 font-extrabold py-3 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
+                    <div className="flex justify-between sm:justify-center w-full pt-4">
+                        <button type="submit" value="Login" className="text-center text-blue-50 font-extrabold py-3 bg-gradient-to-r from-fuchsia-400 to-pink-400 hover:bg-gradient-to-r hover:from-pink-400 hover:to-fuchsia-500 hover:text-white rounded text-lg w-1/2">
                             Login
                         </button>
-                        <button className="sm:ml-4 text-center text-blue-900 font-extrabold bg-pink-300 border-0 py-3 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg w-1/2" 
+                        <button className="sm:ml-4 text-center text-blue-50 font-extrabold bg-gradient-to-r from-fuchsia-400 to-pink-400 border-0 py-3 hover:bg-gradient-to-r hover:from-pink-400 hover:to-fuchsia-500 hover:text-white rounded text-lg w-1/2" 
                             onClick={e=> navigate('/RegisterPage')}>
                             Register
                         </button>
