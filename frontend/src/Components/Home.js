@@ -309,33 +309,31 @@ export default function Home({user}) {
                     {taskArr().map((task) => {
                         return (
                         <div key={task.taskNumber} className="bg-gradient-to-tr from-orange-100 to-orange-200 opacity-70 border-black border-2 my-2 py-2 px-3">
-                            <h1>
-                                Task: #{task.taskNumber} 
+                            <h1 className="pb-1">
+                                Task {task.taskNumber} 
                             </h1>
+                            <div className="border-black border-b-2 -mx-3"/>
 
-                            <h2>
-                                Description:
-                            </h2>
-                            <p>
+                            <p className="pb-1 pt-2 rounded text break-words">
                                 {task.taskDesc}
                             </p>
 
-                            <h3>
-                                Date:
-                            </h3>
-                            {convertDate(formatDate(task.date))}
-
-                            <div className="flex justify-between sm:justify-center w-full mt-1">
-                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg" 
+                            <div className="border-b-2 border-black border-dotted"/>
+                            
+                            <div className="rounded pt-1">
+                                {convertDate(formatDate(task.date))}
+                            </div>
+                            <div className="flex flex-col lg:justify-between lg:flex-row items-center w-full mt-1">
+                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm" 
                                     onClick={e => deleteTask(task.taskNumber)}>
                                     Delete
                                 </button>
                                 {/*Expand edit task form when ediit button is clicked */}
-                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 mx-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg"
+                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 mx-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
                                     onClick={e => editClick(task)}>
                                     Edit
                                 </button>
-                                <button className="w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-lg"
+                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
                                     onClick={e => complete(task.taskNumber)}>
                                     Complete
                                 </button>
