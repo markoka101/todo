@@ -298,14 +298,17 @@ export default function Home({user}) {
     Design will come after everything is fully functional
     */
     return (
-        <section id="home" className="flex flex-col md:flex-row lg:flex-row">
+        <section id="home" className="flex flex-col md:flex-row lg:flex-row h-[90vh] overflow-auto scrollbar">
             <div className="container w-3/5 mx-auto flex px-10-py-30 md:flex-col flex-col justify-center items-center">
-                <div className="bg-blue-400 mb-10 w-full items-center justify-center">
+                <div className="flex w-full md:mt-4 lg:mt-4 items-center justify-center">
                     {/*Popups the form to create new task when add task is clicked*/}
-                    <button onClick={e => addClick()}>Add new task</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-1/2 py-2 px-4 border border-blue-700 rounded"
+                        onClick={e => addClick()}>
+                            Add new task
+                    </button>
                     {addTaskForm === true ? addTask() : null}
                 </div>
-                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-auto">
+                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-auto scrollbar">
                     {taskArr().map((task) => {
                         return (
                         <div key={task.taskNumber} className="bg-gradient-to-tr from-orange-100 to-orange-200 opacity-70 border-black border-2 my-2 py-2 px-3">
@@ -344,7 +347,7 @@ export default function Home({user}) {
                     })}
                 </div>
             </div>
-            <div className="container w-2/5 bg-orange-100 mx-auto flex px-10-py-30 md:flex-row flex-col justify-center items-center">
+            <div className="container w-2/5 bg-orange-100 flex py-30 flex-col justify-center items-center">
                 <div className="bg-rose-200">
                     <h1>{taskArr().length}</h1>
                     <h2>{completedTaskArr().length}</h2>
