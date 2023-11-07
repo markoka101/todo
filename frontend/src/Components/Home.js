@@ -22,6 +22,8 @@ export default function Home({user}) {
     //refresh when tasks change
     const [refresh, setRefresh] = React.useState(true);
 
+    const showHideComplete = !showComplete ? 'Show Completed Tasks':'Hide Completed Tasks'
+
     //Task object
     const taskObj = {
         taskDesc: taskDesc,
@@ -265,10 +267,20 @@ export default function Home({user}) {
                         Task Date:
                     </h2>
                     <input type="datetime-local"
+                        className="w-full"
                         value={date}
                         onChange={(e)=> setDate(e.target.value)}
                     />
-                    <button type="submit" value="editTask">Finish Editing</button>
+                    <div className="flex flex-col lg:justify-between lg:flex-row items-center w-full mt-1">
+                        <button className="py-2 px-1 my-2 w-full lg:w-1/2 lg:mr-2 text-center text-blue-900 font-extrabold bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
+                            onClick={e=>setEditForm(false)}>
+                            Cancel
+                        </button>
+                        <button className="py-2 px-1 my-2 w-full lg:w-1/2 lg:ml-2 text-center text-blue-900 font-extrabold bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
+                            type="submit" value="editTask">
+                            Finish Editing
+                        </button>
+                    </div>
                 </form>
             </div>
         )
@@ -300,15 +312,15 @@ export default function Home({user}) {
     return (
         <section id="home" className="flex flex-col md:flex-row lg:flex-row h-[90vh] overflow-auto scrollbar">
             <div className="container w-3/5 mx-auto flex px-10-py-30 md:flex-col flex-col justify-center items-center">
-                <div className="flex w-full md:mt-4 lg:mt-4 items-center justify-center">
+                <div className="flex w-full md:mt-4 lg:mt-4 mt-2 items-center justify-center">
                     {/*Popups the form to create new task when add task is clicked*/}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-1/2 py-2 px-4 border border-blue-700 rounded"
+                    <button className="bg-blue-500 lg:mr-4 md:mr-4 hover:bg-blue-700 text-white font-bold md:w-2/3 lg:w-1/2 py-2 px-4 border border-blue-700 rounded"
                         onClick={e => addClick()}>
                             Add new task
                     </button>
                     {addTaskForm === true ? addTask() : null}
                 </div>
-                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-auto scrollbar">
+                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-y-scroll scrollbar items-center justify-center">
                     {taskArr().map((task) => {
                         return (
                         <div key={task.taskNumber} className="bg-gradient-to-tr from-orange-100 to-orange-200 opacity-70 border-black border-2 my-2 py-2 px-3">
@@ -351,7 +363,7 @@ export default function Home({user}) {
                 <div className="bg-rose-200">
                     <h1>{taskArr().length}</h1>
                     <h2>{completedTaskArr().length}</h2>
-                    <button onClick={e=>completeClick()}>show completed tasks</button>
+                    <button onClick={e=>completeClick()}>{showHideComplete}</button>
                     {showComplete === true ? finishedTasks() : null}
                 </div>
             </div>
