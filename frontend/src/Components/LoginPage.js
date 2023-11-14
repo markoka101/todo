@@ -31,10 +31,12 @@ export default function LoginPage({ onLogin }) {
             if (res.status === 202) {
                 res.json()
                 .then(data => {
+                    console.log(data);
                     //Store id and JWT in cookie
                     const id = data.id;
+                    const username = data.username;
                     const token = data.accessToken; 
-                    onLogin({id, token});
+                    onLogin({id, username, token});
                 })
             } else {
                 alert('username or password is incorrect');
@@ -45,7 +47,7 @@ export default function LoginPage({ onLogin }) {
 
     return (
         <section id="login" className="relative items-center flex flex-col justify-center py-48">
-            <div className="container max-w-md py-20 mx-auto flex flex-col sm:flex-nowrap bg-pink-50 opacity-75 border-gray-500 border-4">
+            <div className="container max-w-md py-20 mx-auto flex flex-col sm:flex-nowrap bg-pink-50 opacity-75 md:border-gray-500 md:border-4 lg:border-gray-500 lg:border-4">
                 <h1 className="text-center font-extrabold text-lg">
                     Welcome
                 </h1>
