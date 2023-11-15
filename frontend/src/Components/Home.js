@@ -230,22 +230,34 @@ export default function Home({user}) {
     //new task form
     function addTask() {
         return (
-            <div className="lg:w-full h-full md:w-full lg:h-4/5 flex flex-col md:mx-auto w-full md:py-4 text-lg font-bold">
-                <form id="AddForm"onSubmit={handleSubmit} className="flex flex-col mx-10 md:py-4 text-lg">
-                    <h1>
-                        Task Description:
+            <div className="w-full bg-gray-100 rounded-xl bg-opacity-40 border-2 border-gray-400 mt-2">
+                <form id="AddForm"onSubmit={handleSubmit} className="flex flex-col mx-5 py-4">
+                    <h1 className="font-bold">
+                        Task Description
                     </h1>
                     <textarea
+                        className="px-1 mb-2 border-2 border-gray-400"
                         value={taskDesc}
                         onChange={(e) => setTaskDesc(e.target.value)}
                     />
-                    <h2>
+                    <h2 className="font-bold">
                         Date
                     </h2>
                     <input type="datetime-local"
+                        className="px-1 font-semibold border-2 border-gray-400"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}/>
-                    <button type="submit" value="addTask">Add New Task</button>
+
+                    <div className="flex flex-col lg:justify-between lg:flex-row items-center w-full mt-1">
+                        <button className="w-full lg:w-1/2 lg:mr-2 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white text-sm"
+                            onClick={e=>setAddTaskForm(false)}>
+                            Cancel
+                        </button>
+                        <button className="w-full lg:w-1/2 lg:ml-2 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
+                            type="submit" value="addTask">
+                            Add New Task
+                        </button>
+                    </div>
                 </form>
             </div>
         );
@@ -257,14 +269,14 @@ export default function Home({user}) {
             <div className="border-t-2 border-black py-2 mt-1">
                 <form id="EditForm" className="" onSubmit={editHandler}>
                     <h1>
-                        Task Description:
+                        Task Description
                     </h1>
                     <textarea className="w-full"
                         value={taskDesc}
                         onChange={(e) => setTaskDesc(e.target.value)}
                     />
                     <h2>
-                        Task Date:
+                        Task Date
                     </h2>
                     <input type="datetime-local"
                         className="w-full"
@@ -310,45 +322,43 @@ export default function Home({user}) {
     Design will come after everything is fully functional
     */
     return (
-        <section id="home" className="flex flex-col md:flex-row lg:flex-row h-[90vh] overflow-auto scrollbar">
-            <div className="container w-3/5 mx-auto flex px-10-py-30 md:flex-col flex-col justify-center items-center">
-                <div className="flex w-full md:mt-4 lg:mt-4 mt-2 items-center justify-center">
+        <section id="home" className="flex flex-col  lg:flex-row h-[90vh] overflow-auto scrollbar">
+            <div className="container w-full md:w-4/5 lg:w-3/5 mx-auto flex px-10 py-30 flex-col items-center">
+                <div className="flex flex-col w-full md:w-2/3 lg:w-2/3 md:mt-4 lg:mt-4 mt-2 items-center justify-center">
                     {/*Popups the form to create new task when add task is clicked*/}
-                    <button className="bg-blue-500 lg:mr-4 md:mr-4 hover:bg-blue-700 text-white font-bold md:w-2/3 lg:w-1/2 py-2 px-4 border border-blue-700 rounded"
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold md:w-2/3 lg:w-2/3 py-2 px-4 border border-blue-700 rounded"
                         onClick={e => addClick()}>
                             Add new task
                     </button>
                     {addTaskForm === true ? addTask() : null}
                 </div>
-                <div className=" py-2 w-full md:w-2/3 lg:w-1/2 overflow-y-scroll scrollbar items-center justify-center">
+                <div className="flex flex-col py-2 w-full md:w-2/3 lg:w-2/3 overflow-auto scrollbar px-1 my-2">
                     {taskArr().map((task) => {
                         return (
-                        <div key={task.taskNumber} className="bg-gradient-to-tr from-orange-100 to-orange-200 opacity-70 border-black border-2 my-2 py-2 px-3">
-                            <h1 className="pb-1">
+                        <div key={task.taskNumber} className="bg-fuchsia-100 bg-opacity-70 border-gray-700 border-2 rounded-xl my-2 py-2 px-3 w-full">
+                            <h1 className="pb-1 font-bold text-lg">
                                 Task {task.taskNumber} 
                             </h1>
                             <div className="border-black border-b-2 -mx-3"/>
 
-                            <p className="pb-1 pt-2 rounded text break-words">
+                            <p className="pb-1 pt-2 font-semibold break-words">
                                 {task.taskDesc}
                             </p>
-
-                            <div className="border-b-2 border-black border-dotted"/>
                             
-                            <div className="rounded pt-1">
+                            <div className="pt-1 text-gray-500 font-semibold">
                                 {convertDate(formatDate(task.date))}
                             </div>
                             <div className="flex flex-col lg:justify-between lg:flex-row items-center w-full mt-1">
-                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm" 
+                                <button className="w-full lg:w-1/3 text-center text-gray-50 font-extrabold py-2 my-2 bg-fuchsia-400 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm" 
                                     onClick={e => deleteTask(task.taskNumber)}>
                                     Delete
                                 </button>
                                 {/*Expand edit task form when ediit button is clicked */}
-                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 mx-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
+                                <button className="w-full lg:w-1/3 text-center text-gray-50 font-extrabold py-2 mx-2 my-2 bg-fuchsia-400 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
                                     onClick={e => editClick(task)}>
                                     Edit
                                 </button>
-                                <button className="w-full lg:w-1/3 text-center text-blue-900 font-extrabold py-2 my-2 bg-pink-300 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
+                                <button className="w-full lg:w-1/3 text-center text-gray-50 font-extrabold py-2 my-2 bg-fuchsia-400 hover:bg-gradient-to-r from-pink-400 to-fuchsia-500 hover:text-white rounded text-sm"
                                     onClick={e => complete(task.taskNumber)}>
                                     Complete
                                 </button>
@@ -361,8 +371,12 @@ export default function Home({user}) {
             </div>
             <div className="container w-2/5 bg-orange-100 flex py-30 flex-col justify-center items-center">
                 <div className="bg-rose-200">
-                    <h1>{taskArr().length}</h1>
-                    <h2>{completedTaskArr().length}</h2>
+                    <h1>
+                        {taskArr().length} tasks to complete
+                    </h1>
+                    <h2>
+                        {completedTaskArr().length} tasks completed
+                    </h2>
                     <button onClick={e=>completeClick()}>{showHideComplete}</button>
                     {showComplete === true ? finishedTasks() : null}
                 </div>

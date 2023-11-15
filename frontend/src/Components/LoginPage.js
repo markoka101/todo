@@ -31,8 +31,7 @@ export default function LoginPage({ onLogin }) {
             if (res.status === 202) {
                 res.json()
                 .then(data => {
-                    console.log(data);
-                    //Store id and JWT in cookie
+                    //Store id, username, and JWT in cookie
                     const id = data.id;
                     const username = data.username;
                     const token = data.accessToken; 
