@@ -21,11 +21,11 @@ export default function App() {
     }
 
     return (
-        <main className="bg-gradient-to-r from-fuchsia-300 from-20% via-purple-300 via-40% to-violet-300 to-85% min-h-screen max-h-screen">
+        <main className="bg-gradient-to-r from-fuchsia-300 from-20% via-purple-300 via-40% to-violet-300 to-85% min-h-screen max-h-screen overflow-y-auto scrollbar">
             <CookiesProvider>
                 {cookies.user ? (
                     <>
-                    <Navbar />
+                    <Navbar user = {cookies.user}/>
                     <Home user = {cookies.user} />
                     </>
                 ) : (
