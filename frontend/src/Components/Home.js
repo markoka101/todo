@@ -301,14 +301,16 @@ export default function Home({user}) {
     //display list of completed tasks
     function finishedTasks() {
         return (
-            <div className="bg-green-500">
+            <div className="flex flex-col py-2 w-full px-10">
                 {completedTaskArr().map((task) => {
                     return (
-                        <div key={task.taskDesc} className="border-black border-4">
-                            <h1>
+                        <div key={task.taskDesc} className="bg-fuchsia-100 bg-opacity-70 border-gray-700 border-2 rounded-xl my-2 py-2 px-3 w-full">
+                            <p className="pb-1 font-semibold break-words">
                                 {task.taskDesc}
-                            </h1>
-                            {convertDate(formatDate(task.date))} <br></br>
+                            </p>
+                            <div className="font-semibold text-gray-500">
+                                {convertDate(formatDate(task.date))} 
+                            </div>
                         </div>
                     );
                 })}
@@ -316,23 +318,39 @@ export default function Home({user}) {
         )
     }
 
-    /*
-    Currently using different colors to help me visualize the different components 
-    while implementing functionality
-    Design will come after everything is fully functional
-    */
+
     return (
-        <section id="home" className="flex flex-col-reverse lg:flex-row h-[90vh] overflow-auto scrollbar">
-            <div className="container w-full md:w-4/5 lg:w-3/5 mx-auto flex px-10 py-30 flex-col items-center">
-                <div className="flex flex-col w-full md:w-2/3 lg:w-2/3 md:mt-4 lg:mt-4 mt-2 items-center justify-center">
+        <section id="home" className="flex flex-col lg:flex-row-reverse h-[90vh] overflow-y-scroll scrollbar">
+            <div className="container w-full md:w-4/5 lg:w-2/5 mx-auto flex py-5 px-10 flex-col items-center">
+                <div className="bg-fuchsia-100 bg-opacity-70 border-gray-700 border-2 rounded-xl px-3 py-5 w-full lg:mx-5">
+                    <div className="text-xl font-semibold flex flex-col">
+                        <h1>
+                            {taskArr().length} task(s) to do
+                        </h1>
+                        <h2>
+                            {completedTaskArr().length} task(s) completed
+                        </h2>
+                    </div> 
+                </div>
+                <div className="bg-white bg-opacity-20 flex flex-col w-full items-center mt-5 lg:overflow-y-auto lg:scrollbar">
+                    <button 
+                    className="rounded-lg w-full text-center text-lg font-bold text-white py-2 bg-blue-500 hover:bg-gradient-to-tr hover:from-sky-500 hover:to-blue-500 border-2 border-gray-500"
+                    onClick={e=>completeClick()}>
+                        {showHideComplete}
+                    </button>
+                    {showComplete === true ? finishedTasks() : null}
+                </div>
+            </div>
+            <div className="container w-full md:w-4/5 lg:w-3/5 mx-auto flex py-5 px-10 flex-col items-center">
+                <div className="flex flex-col w-full lg:w-2/3  items-center justify-center">
                     {/*Popups the form to create new task when add task is clicked*/}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold md:w-2/3 lg:w-2/3 py-2 px-4 border border-blue-700 rounded"
+                    <button className="rounded-lg w-full text-center text-lg font-bold text-white py-2 bg-blue-500 hover:bg-gradient-to-tr hover:from-sky-500 hover:to-blue-500 border-2 border-gray-500"
                         onClick={e => addClick()}>
                             Add new task
                     </button>
                     {addTaskForm === true ? addTask() : null}
                 </div>
-                <div className="flex flex-col py-2 w-full lg:w-2/3 overflow-auto scrollbar px-1 my-2">
+                <div className="flex flex-col py-2 w-full overflow-auto scrollbar px-1 my-2">
                     {taskArr().map((task) => {
                         return (
                         <div key={task.taskNumber} className="bg-fuchsia-100 bg-opacity-70 border-gray-700 border-2 rounded-xl my-2 py-2 px-3 w-full">
@@ -367,20 +385,6 @@ export default function Home({user}) {
                         </div>
                         );
                     })}
-                </div>
-            </div>
-            <div className="container w-full lg:w-2/5 mx-auto flex py-10 lg:py-30 flex-col items-center">
-                <div className="bg-fuchsia-100 bg-opacity-70 border-gray-700 border-2 rounded-xl px-3 py-5 w-10/12 lg:w-3/4 mt-20 lg:mx-5">
-                    <div className="text-xl font-semibold flex flex-row justify-between px-3 md:px-0 lg:px-0 lg:flex-col">
-                        <h1>
-                            {taskArr().length} task(s) to do
-                        </h1>
-                        <h2>
-                            {completedTaskArr().length} task(s) completed
-                        </h2>
-                    </div>
-                    <button onClick={e=>completeClick()}>{showHideComplete}</button>
-                    {showComplete === true ? finishedTasks() : null}
                 </div>
             </div>
         </section>

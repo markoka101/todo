@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function RegisterPage() {
@@ -6,6 +6,19 @@ export default function RegisterPage() {
     const [username,setUsername] = React.useState('');
     const [password,setPassword] = React.useState('');
     const [email,setEmail] = React.useState('');
+
+    //call handleSubmit function on pressing enter
+    useEffect(() => {
+        const listner = e => {
+            if (e.code === "Enter" || e.code === "NumpadEnter") {
+                handleSubmit(e);
+            }
+        };
+        document.addEventListener("keydown", listner);
+        return () => {
+            document.removeEventListener("keydown", listner);
+        };
+    }); 
     
     //user object
     const userObj = {
@@ -16,6 +29,7 @@ export default function RegisterPage() {
 
     const navigate =  useNavigate();
 
+    //handles submit for register
     function handleSubmit(e) {
         e.preventDefault();
         fetch('http://localhost:8080/user/signup', ({
