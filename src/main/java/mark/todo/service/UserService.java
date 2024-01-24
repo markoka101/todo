@@ -2,8 +2,6 @@ package mark.todo.service;
 
 import mark.todo.entity.User;
 import mark.todo.pojo.Task;
-
-import java.util.Date;
 import java.util.Set;
 
 public interface UserService {
