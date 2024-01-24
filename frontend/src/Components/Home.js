@@ -45,8 +45,7 @@ export default function Home({user}) {
             body: JSON.stringify(taskObj)
         }))
         .then(res => {
-            if (res.status === 200) {
-                alert('Task Created!');
+            if (res.status === 200) {           
                 setTaskDesc('');
                 setDate(moment().format('yyyy-MM-DDTHH:mm').toString());
                 setAddTaskForm(false);
@@ -141,8 +140,7 @@ export default function Home({user}) {
         }))
         .then(res => {
             if (res.status === 200) {
-                alert('Task Edited');
-
+                
                 //set states back to default
                 setTaskDesc('');
                 setDate(moment().format('yyyy-MM-DDTHH:mm').toString());
@@ -182,11 +180,6 @@ export default function Home({user}) {
     //delete the task
     function deleteTask(taskNumber) {
 
-        //confirm that user actually wants to delete task
-        if (!window.confirm('This will permenantly delete the task!!')) {
-            return ;
-        }
-
         fetch(`http://localhost:8080/user/${user.id}/${taskNumber}/delete`, ({
             method: "DELETE",
             mode: "cors",
@@ -196,7 +189,6 @@ export default function Home({user}) {
         }))
         .then(res => {
             if (res.status === 200) {
-                alert('Task Deleted');
                 setRefresh(true);
             } else {
                 alert('Something Went Wrong');
@@ -217,7 +209,7 @@ export default function Home({user}) {
         }))
         .then(res => {
             if (res.status === 200) {
-                alert('Task Completed!');
+                
                 setRefresh(true);
                 setShowComplete(false);
             } else {

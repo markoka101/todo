@@ -17,11 +17,11 @@ export default function App() {
     const [cookies, setCookie] = useCookies(["user"]);
 
     function handleLogin(user) {
-        setCookie('user', user, { path: '/'}, {expires: 1200});
+        setCookie('user', user, { path: '/'}, {expires: 3600});
     }
 
     return (
-        <main className="bg-gradient-to-r from-fuchsia-300 from-20% via-purple-300 via-40% to-violet-300 to-85% min-h-screen max-h-screen overflow-y-auto scrollbar">
+        <main className="bg-gradient-to-r from-fuchsia-300 from-20% via-purple-300 via-40% to-violet-300 to-85% min-h-screen max-h-screen max-w-screen overflow-y-auto overflow-x-hidden scrollbar">
             <CookiesProvider>
                 {cookies.user ? (
                     <>
