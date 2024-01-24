@@ -1,6 +1,4 @@
-import { ArrowRightIcon } from "@heroicons/react/solid";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Cookies, useCookies } from "react-cookie";
 
 export default function Navbar({user}) {
